@@ -139,7 +139,7 @@ Stats.printUnigramme()
 #Stats.Lire_fichierUnigramme(args.d,"Balzac")
 #Stats.printUnigramme()
 #Stats.Lire_fichierModeBigramme(args.d,"Balzac")
-#Stats.GenererTexteAleatoire(60,10)
+Stats.GenererTexteAleatoire(60,10)
 #Stats.LireAComparer(args.f,2)
 
 

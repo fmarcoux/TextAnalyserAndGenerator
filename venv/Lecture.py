@@ -17,8 +17,8 @@ class LectureFichier:
         ListeRetour = []
         NewListe = liste.split()
         for mot in NewListe:
-            for  signe in PONC:
-                mot = mot.replace(signe, " ")
+            for signe in PONC:
+                mot = mot.replace(signe," ")
             mot = mot.replace("\n", " ")
             mot = mot.lstrip()
             mot = mot.rstrip()
@@ -163,10 +163,14 @@ class LectureFichier:
     def GenererTexteAleatoire(self,NombreMot,Frequence):
         TexteFinale = list()
         ListeSuffixPossible=[]
-        FirstMot=self.ListeMot[randint(1,(len(self.ListeMot)))]+" "+self.ListeMot[randint(1,(len(self.ListeMot)))]
+        random1=randint(0,(len(self.ListeMot)-1))
+        random2=randint(0,(len(self.ListeMot)-1))
+        FirstMot=str(self.ListeMot[random1]+" "+self.ListeMot[random2])
+        print(len(self.ListeMot))
         while not self.Graph.has_node(FirstMot):
-            FirstMot = self.ListeMot[randint(1, (len(self.ListeMot)))] + " " + self.ListeMot[
-                randint(1, (len(self.ListeMot)))]
+            random1 = randint(0, (len(self.ListeMot) - 1))
+            random2 = randint(0, (len(self.ListeMot) - 1))
+            FirstMot = str(self.ListeMot[random1] + " " + self.ListeMot[random2])
         TexteFinale.append(FirstMot)
         print("mot trouve:"+FirstMot)
         Edges=(self.Graph.edges(FirstMot))
