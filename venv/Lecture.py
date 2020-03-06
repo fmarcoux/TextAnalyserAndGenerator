@@ -15,18 +15,15 @@ class LectureFichier:
     def EnleverCaractere(self,liste):
         PONC = ["!", '"', "'", ")", "(", ",", ".", ";", ":", "?", "-", "_","—"]
         ListeRetour = []
-        newword = liste
-        newword = newword.lower()
-        for  signe in PONC:
-            newword = newword.replace(signe, " ")
-        newword = newword.replace("  ", " ")
-        newword = newword.replace("\n", " ")
-        newword = newword.lstrip()
-        newword = newword.rstrip()
-        listeNew = newword.split()
-        for i in range(len(listeNew) - 1):
-            if len(listeNew[i]) > 2 and listeNew[i] != " ":
-                ListeRetour.append(listeNew[i])
+        NewListe = liste.split()
+        for mot in NewListe:
+            for  signe in PONC:
+                mot = mot.replace(signe, " ")
+            mot = mot.replace("\n", " ")
+            mot = mot.lstrip()
+            mot = mot.rstrip()
+        if len(mot)>2:
+            ListeRetour.append(mot)
         return ListeRetour
 
     def GetListe(self):
