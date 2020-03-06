@@ -22,8 +22,8 @@ class LectureFichier:
             mot = mot.replace("\n", " ")
             mot = mot.lstrip()
             mot = mot.rstrip()
-        if len(mot)>2:
-            ListeRetour.append(mot)
+            if len(mot)>2:
+                ListeRetour.append(mot)
         return ListeRetour
 
     def GetListe(self):
@@ -72,8 +72,10 @@ class LectureFichier:
                     for i in range(len(ListeNouveauMot) - 1):
                         if ListeNouveauMot[i] in self.DictionnaireUnigramme:
                             self.DictionnaireUnigramme[ListeNouveauMot[i]] += 1
+                            self.ListeMot.append(ListeNouveauMot[i])
                         else:
                             self.DictionnaireUnigramme[ListeNouveauMot[i]] = 1
+                            self.ListeMot.append(ListeNouveauMot[i])
                 f.close()
         else:
             print("pas d'auteur nomme :", auteur)# #
@@ -163,14 +165,10 @@ class LectureFichier:
     def GenererTexteAleatoire(self,NombreMot,Frequence):
         TexteFinale = list()
         ListeSuffixPossible=[]
-        random1=randint(0,(len(self.ListeMot)-1))
-        random2=randint(0,(len(self.ListeMot)-1))
-        FirstMot=str(self.ListeMot[random1]+" "+self.ListeMot[random2])
-        print(len(self.ListeMot))
+        FirstMot=str(self.ListeMot[randint(0,(len(self.ListeMot)-1))]+" "+self.ListeMot[randint(0,(len(self.ListeMot)-1))])
         while not self.Graph.has_node(FirstMot):
-            random1 = randint(0, (len(self.ListeMot) - 1))
-            random2 = randint(0, (len(self.ListeMot) - 1))
-            FirstMot = str(self.ListeMot[random1] + " " + self.ListeMot[random2])
+            FirstMot = str(self.ListeMot[randint(0,(len(self.ListeMot)-1))] + " "
+                           + self.ListeMot[randint(0,(len(self.ListeMot)-1))])
         TexteFinale.append(FirstMot)
         print("mot trouve:"+FirstMot)
         Edges=(self.Graph.edges(FirstMot))
@@ -198,16 +196,11 @@ class LectureFichier:
                         NextMot = SortedList[random]
                     else:
                         NextMot=SortedList[random-1]
-            if NextMot[1]== TexteFinale[len(TexteFinale)-1]:
-                break
-            else:
-                TexteFinale.append(NextMot[1])
-                print("Next mot: " + str(NextMot) + "\n" + "InfoCurrent :" + str(InfoCurrent))
-                Edges = self.Graph.edges(InfoCurrent[1] + " " + NextMot[1])
-                SortedList.clear()
-                ListeSuffixPossible.clear()
-
-
+            TexteFinale.append(NextMot[1])
+            print("Next mot: " + str(NextMot) + "\n" + "InfoCurrent :" + str(InfoCurrent))
+            Edges = self.Graph.edges(InfoCurrent[1] + " " + NextMot[1])
+            SortedList.clear()
+            ListeSuffixPossible.clear()
         print(TexteFinale)
 
 
