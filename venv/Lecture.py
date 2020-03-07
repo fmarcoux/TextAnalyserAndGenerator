@@ -49,15 +49,14 @@ class LectureFichier:
                         self.DictionnaireAComparer[ListeTemp[i]] += 1
                     else:
                         self.DictionnaireAComparer[ListeTemp[i]] = 1
-                else:
-                    print("mauvais mode de lecture le fichier n'a pas ete lu")
+            else:
+                print("mauvais mode de lecture le fichier n'a pas ete lu")
 
 
     def Lire_fichierUnigramme(self,repertoire,auteur): #Analyse un auteur et update le dictionnaire
         # que le dict de la freq des mots
         self.DictionnaireUnigramme.clear()
         self.ListeMot.clear()
-        self.Graph.clear()
         ListeAuteur = os.listdir(repertoire)
         ListeAuteur.__delitem__(0)
         repertoireauteur = repertoire + "\\" + auteur
@@ -148,7 +147,7 @@ class LectureFichier:
             self.quickSort(arr, pi + 1, high)
 
 
-    def printUnigramme(self):
+    def printDictionnaire(self):
             print("Dictionnaire de la frequence des mots dans le texte : \n")
             print(self.DictionnaireUnigramme)
 
@@ -206,11 +205,12 @@ class LectureFichier:
 
     def ComparerAuteurAvecTexte(self,repertoire,auteur,texteinconu,modecomparaison):
         ValCal=0
+        Count=0
         if modecomparaison ==2:
-            self.Lire_fichierModeBigramme()
+            self.Lire_fichierModeBigramme(repertoire,auteur)
             self.LireAComparer(texteinconu, modecomparaison)
         elif modecomparaison==1:
-            self.Lire_fichierUnigramme()
+            self.Lire_fichierUnigramme(repertoire,auteur)
             self.LireAComparer(texteinconu,modecomparaison)
         else: return 0
         for word in self.DictionnaireAComparer:
@@ -218,8 +218,12 @@ class LectureFichier:
                 DifFreq=abs(self.DictionnaireAComparer[word]-self.DictionnaireUnigramme[word])
                 self.ListeMotCommun.append(word)
                 ValCal+=pow(DifFreq,2)
-        Terminos=math.sqrt(ValCal)
-        print(terminos)
+                Count+=1
+        Terminos = math.sqrt(ValCal)
+        print(Terminos)
+
+
+
 
 
 
