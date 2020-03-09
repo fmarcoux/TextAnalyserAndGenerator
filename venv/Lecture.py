@@ -186,26 +186,42 @@ class LectureFichier:
                 #print(w,self.DictionnaireUnigramme[w])
                 #count+=1
 
-    def GenererTexteAleatoire(self,NombreMot,Frequence):
+    def motRandom(self):
+        FirstMot = str(self.ListeMot[randint(0, (len(self.ListeMot) - 1))] + " " + self.ListeMot[
+            randint(0, (len(self.ListeMot) - 1))])
+        while not self.Graph.has_node(FirstMot):
+            FirstMot = str(self.ListeMot[randint(0, (len(self.ListeMot) - 1))] + " "
+                           + self.ListeMot[randint(0, (len(self.ListeMot) - 1))])
+        return FirstMot
+
+    def GenererTexteAleatoire(self, NombreMot, Frequence):
         TexteFinale = list()
-        ListeSuffixPossible=[]
-        FirstMot=self.GetRandomMot()
+        ListeSuffixPossible = []
+        FirstMot = self.motRandom()
         TexteFinale.append(FirstMot)
-        Edges=(self.Graph.edges(FirstMot))
+        print("mot trouve:" + FirstMot)
+        Edges = (self.Graph.edges(FirstMot))
         for index in range(NombreMot):
             for edges in Edges:
                 data = self.Graph.get_edge_data(edges[0], edges[1])
                 ListeSuffixPossible.append([data["weight"], edges[1]])
             SortedList = sorted(ListeSuffixPossible, reverse=True)
-
-            if len(SortedList)==0:
-                break
-            InfoCurrent=str(edges[0]).split()
+            if len(SortedList) == 0:
+                TexteFinale.append(". ")
+                FirstMot = self.motRandom()
+                TexteFinale.append(FirstMot)
+                print("mot trouve:" + FirstMot)
+                Edges = (self.Graph.edges(FirstMot))
+                for edges in Edges:
+                    data = self.Graph.get_edge_data(edges[0], edges[1])
+                    ListeSuffixPossible.append([data["weight"], edges[1]])
+                SortedList = sorted(ListeSuffixPossible, reverse=True)
+            InfoCurrent = str(edges[0]).split()
             if Frequence != 0:
                 TempFreq = Frequence
                 if Frequence > int(len(SortedList) - 1):
-                    if len(SortedList)!=0:
-                        TempFreq = int(len(SortedList)-1)
+                    if len(SortedList) != 0:
+                        TempFreq = int(len(SortedList) - 1)
                         NextMot = SortedList[TempFreq]
                     else:
                         break
@@ -213,15 +229,15 @@ class LectureFichier:
                     NextMot = SortedList[Frequence - 1]
             else:
                 if len(SortedList) != 0:
-                    random=randint(0, len(SortedList))
-                    if random==0:
+                    random = randint(0, len(SortedList))
+                    if random == 0:
                         print(SortedList[0])
                         NextMot = SortedList[random]
                     else:
-                        NextMot=SortedList[random-1]
+                        NextMot = SortedList[random - 1]
             TexteFinale.append(NextMot[1])
             print("Next mot: " + str(NextMot) + "\n" + "InfoCurrent :" + str(InfoCurrent))
-            if len(InfoCurrent)>1:
+            if len(InfoCurrent) > 1:
                 Edges = self.Graph.edges(InfoCurrent[1] + " " + NextMot[1])
             else:
                 Edges = self.Graph.edges(InfoCurrent[0] + " " + NextMot[1])
@@ -229,7 +245,6 @@ class LectureFichier:
             SortedList.clear()
             ListeSuffixPossible.clear()
         print(TexteFinale)
-
 
     def ComparerAuteurAvecTexte(self,repertoire,auteur,texteinconu,modecomparaison):
         DifFreq=0

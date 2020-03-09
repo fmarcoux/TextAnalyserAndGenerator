@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7ef6679e-ee31-4160-97e4-443bd8b6cd1b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/markov.py" beforeDir="false" afterPath="$PROJECT_DIR$/markov.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/Lecture.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Lecture.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,9 +96,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.markov" />
-      <item itemvalue="Python.graphtry" />
       <item itemvalue="Python.Lecture" />
+      <item itemvalue="Python.graphtry" />
+      <item itemvalue="Python.markov" />
     </list>
     <recent_temporary>
       <list>
@@ -131,6 +130,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="716" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1583027402170" />
+    <state x="752" y="171" key="#markov" timestamp="1583783138867">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="752" y="171" key="#markov/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1583783138867" />
     <state x="614" y="114" key="CommitChangelistDialog2" timestamp="1583476263666">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -143,11 +146,12 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="737" y="239" key="EnvironmentVariablesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583776205578" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1583772929193">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="789" y="294" key="FileChooserDialogImpl" timestamp="1583783094414">
+      <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1583027658451" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583772929193" />
+    <state x="789" y="294" key="FileChooserDialogImpl/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1583783094414" />
     <state width="1899" height="245" key="GridCell.Tab.0.bottom" timestamp="1583782553875">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -188,11 +192,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="338" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1583476903393" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1583777619398">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="492" y="173" key="SettingsEditor" timestamp="1583783098386">
+      <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1583475669278" />
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583777619398" />
+    <state x="492" y="173" key="SettingsEditor/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1583783098386" />
+    <state x="655" y="101" width="738" height="909" key="find.popup" timestamp="1583783110007">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="655" y="101" width="738" height="909" key="find.popup/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1583783110007" />
     <state x="623" y="229" width="672" height="678" key="search.everywhere.popup" timestamp="1583111484774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
