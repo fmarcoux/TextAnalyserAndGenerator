@@ -18,12 +18,14 @@ class LectureFichier:
         NewListe = liste.split()
         for mot in NewListe:
             for signe in PONC:
-                mot = mot.replace(signe," ")
-            mot = mot.replace("\n", " ")
+                mot = mot.replace(signe,"")
+            mot = mot.replace("\n", "")
             mot = mot.lstrip()
             mot = mot.rstrip()
+            mot=mot.lower()
             if len(mot)>2:
                 ListeRetour.append(mot)
+
         return ListeRetour
 
     def GetListe(self):
@@ -53,7 +55,7 @@ class LectureFichier:
                 print("mauvais mode de lecture le fichier n'a pas ete lu")
 
 
-    def Lire_fichierUnigramme(self,repertoire,auteur): #Analyse un auteur et update le dictionnaire
+    def Lire_fichierUnigramme(self,repertoire,auteur,ponctuation): #Analyse un auteur et update le dictionnaire
         # que le dict de la freq des mots
         self.DictionnaireUnigramme.clear()
         self.ListeMot.clear()
@@ -67,20 +69,23 @@ class LectureFichier:
                 path = repertoireauteur + "\\" + texte
                 f = open(path, 'r', encoding="utf8")
                 for lines in f:
-                    ListeNouveauMot = self.EnleverCaractere(lines)
-                    for i in range(len(ListeNouveauMot) - 1):
-                        if ListeNouveauMot[i] in self.DictionnaireUnigramme:
-                            self.DictionnaireUnigramme[ListeNouveauMot[i]] += 1
-                            self.ListeMot.append(ListeNouveauMot[i])
+                    if ponctuation:
+                        TempListe = self.EnleverCaractere(lines)
+                    else:
+                        TempListe = lines.split()
+                    for i in range(len(TempListe) - 1):
+                        if TempListe[i] in self.DictionnaireUnigramme:
+                            self.DictionnaireUnigramme[TempListe[i]] += 1
+                            self.ListeMot.append(TempListe[i])
                         else:
-                            self.DictionnaireUnigramme[ListeNouveauMot[i]] = 1
-                            self.ListeMot.append(ListeNouveauMot[i])
+                            self.DictionnaireUnigramme[TempListe[i]] = 1
+                            self.ListeMot.append(TempListe[i])
                 f.close()
         else:
             print("pas d'auteur nomme :", auteur)# #
 
 
-    def Lire_fichierModeBigramme(self,repertoire,auteur):  # li un fichier en mode bigramme et update le graph et la iste des mots et le dict
+    def Lire_fichierModeBigramme(self,repertoire,auteur,ponctuation):  # li un fichier en mode bigramme et update le graph et la iste des mots et le dict
         self.DictionnaireUnigramme.clear()
         self.ListeMot.clear()
         self.Graph.clear()
@@ -94,7 +99,10 @@ class LectureFichier:
                 path = repertoireauteur + "\\" + file
                 f = open(path, 'r', encoding="utf8")
                 for lines in f:
-                    TempListe=self.EnleverCaractere(lines)
+                    if ponctuation:
+                        TempListe=self.EnleverCaractere(lines)
+                    else:
+                        TempListe=lines.split()
                     for index in range(len(TempListe) - 1):
                         self.ListeMot.append(TempListe[index])
                         if str(TempListe[index] + " " + TempListe[index + 1]) in self.DictionnaireUnigramme:
@@ -155,11 +163,13 @@ class LectureFichier:
     def PrintFrequenceNMot(self,Frequence):
         sortedliste=sorted(self.DictionnaireUnigramme,key=self.DictionnaireUnigramme.get,reverse=True)
         count = 0
-        for w in sorted(self.DictionnaireUnigramme,key=self.DictionnaireUnigramme.get,reverse=True):
+        print(sortedliste[Frequence-1])
 
-            if count !=Frequence:
-                print(w,self.DictionnaireUnigramme[w])
-                count+=1
+        #for w in sorted(self.DictionnaireUnigramme,key=self.DictionnaireUnigramme.get,reverse=True):
+
+            #if count !=Frequence:
+                #print(w,self.DictionnaireUnigramme[w])
+                #count+=1
 
     def GenererTexteAleatoire(self,NombreMot,Frequence):
         TexteFinale = list()
@@ -176,6 +186,8 @@ class LectureFichier:
                 data = self.Graph.get_edge_data(edges[0], edges[1])
                 ListeSuffixPossible.append([data["weight"], edges[1]])
             SortedList = sorted(ListeSuffixPossible, reverse=True)
+            if len(SortedList)==0:
+                break
             InfoCurrent=str(edges[0]).split()
             if Frequence != 0:
                 TempFreq = Frequence
@@ -197,7 +209,11 @@ class LectureFichier:
                         NextMot=SortedList[random-1]
             TexteFinale.append(NextMot[1])
             print("Next mot: " + str(NextMot) + "\n" + "InfoCurrent :" + str(InfoCurrent))
-            Edges = self.Graph.edges(InfoCurrent[1] + " " + NextMot[1])
+            if len(InfoCurrent)>1:
+                Edges = self.Graph.edges(InfoCurrent[1] + " " + NextMot[1])
+            else:
+                Edges = self.Graph.edges(InfoCurrent[0] + " " + NextMot[1])
+
             SortedList.clear()
             ListeSuffixPossible.clear()
         print(TexteFinale)
@@ -206,6 +222,7 @@ class LectureFichier:
     def ComparerAuteurAvecTexte(self,repertoire,auteur,texteinconu,modecomparaison):
         ValCal=0
         Count=0
+
         if modecomparaison ==2:
             self.Lire_fichierModeBigramme(repertoire,auteur)
             self.LireAComparer(texteinconu, modecomparaison)
@@ -221,17 +238,3 @@ class LectureFichier:
                 Count+=1
         Terminos = math.sqrt(ValCal)
         print(Terminos)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
