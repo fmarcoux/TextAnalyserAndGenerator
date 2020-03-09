@@ -16,20 +16,34 @@ class LectureFichier:
         PONC = ["!", '"', "'", ")", "(", ",", ".", ";", ":", "?", "-", "_","—"]
         ListeRetour = []
         NewListe = liste.split()
+        AutreLitre=[]
         for mot in NewListe:
             for signe in PONC:
-                mot = mot.replace(signe,"")
+                mot = mot.replace(signe," ")
             mot = mot.replace("\n", "")
             mot = mot.lstrip()
             mot = mot.rstrip()
             mot=mot.lower()
-            if len(mot)>2:
-                ListeRetour.append(mot)
+            AutreLitre=mot.split()
+
+            for mot in AutreLitre:
+                if len(mot)>2:
+                    ListeRetour.append(mot)
 
         return ListeRetour
 
     def GetListe(self):
         return(self.ListeMot)
+
+    def GetRandomMot(self):
+        FirstMot = str(self.ListeMot[randint(0, (len(self.ListeMot) - 1))] + " " + self.ListeMot[
+            randint(0, (len(self.ListeMot) - 1))])
+        while not self.Graph.has_node(FirstMot):
+            FirstMot = str(self.ListeMot[randint(0, (len(self.ListeMot) - 1))] + " "
+                           + self.ListeMot[randint(0, (len(self.ListeMot) - 1))])
+        print("mot trouve:" + FirstMot)
+        return FirstMot
+
 
     def LireAComparer(self,path,modelecture):
 
@@ -121,6 +135,7 @@ class LectureFichier:
                                 self.Graph.add_edge(TempListe[index]+" "+TempListe[index+1], TempListe[index + 2], weight=1)
                 f.close()
 
+
     def partition(self,arr, low, high):
         i = (low - 1)  # index of smaller element
         pivot = arr[high]  # pivot
@@ -174,18 +189,15 @@ class LectureFichier:
     def GenererTexteAleatoire(self,NombreMot,Frequence):
         TexteFinale = list()
         ListeSuffixPossible=[]
-        FirstMot=str(self.ListeMot[randint(0,(len(self.ListeMot)-1))]+" "+self.ListeMot[randint(0,(len(self.ListeMot)-1))])
-        while not self.Graph.has_node(FirstMot):
-            FirstMot = str(self.ListeMot[randint(0,(len(self.ListeMot)-1))] + " "
-                           + self.ListeMot[randint(0,(len(self.ListeMot)-1))])
+        FirstMot=self.GetRandomMot()
         TexteFinale.append(FirstMot)
-        print("mot trouve:"+FirstMot)
         Edges=(self.Graph.edges(FirstMot))
         for index in range(NombreMot):
             for edges in Edges:
                 data = self.Graph.get_edge_data(edges[0], edges[1])
                 ListeSuffixPossible.append([data["weight"], edges[1]])
             SortedList = sorted(ListeSuffixPossible, reverse=True)
+
             if len(SortedList)==0:
                 break
             InfoCurrent=str(edges[0]).split()
@@ -220,21 +232,28 @@ class LectureFichier:
 
 
     def ComparerAuteurAvecTexte(self,repertoire,auteur,texteinconu,modecomparaison):
-        ValCal=0
-        Count=0
-
+        DifFreq=0
+        TotalFrequenceAuteur=0
+        TotalFrequenceInconnu=0
         if modecomparaison ==2:
-            self.Lire_fichierModeBigramme(repertoire,auteur)
+            self.Lire_fichierModeBigramme(repertoire,auteur,True)
             self.LireAComparer(texteinconu, modecomparaison)
         elif modecomparaison==1:
-            self.Lire_fichierUnigramme(repertoire,auteur)
+            self.Lire_fichierUnigramme(repertoire,auteur,True)
             self.LireAComparer(texteinconu,modecomparaison)
         else: return 0
         for word in self.DictionnaireAComparer:
             if word in self.DictionnaireUnigramme:
-                DifFreq=abs(self.DictionnaireAComparer[word]-self.DictionnaireUnigramme[word])
                 self.ListeMotCommun.append(word)
-                ValCal+=pow(DifFreq,2)
-                Count+=1
-        Terminos = math.sqrt(ValCal)
-        print(Terminos)
+                TotalFrequenceAuteur+=self.DictionnaireUnigramme[word]
+                TotalFrequenceInconnu+=self.DictionnaireAComparer[word]
+        for word in self.ListeMotCommun:
+            DifFreq+=pow(abs((self.DictionnaireUnigramme[word]/TotalFrequenceAuteur)-(self.DictionnaireAComparer[word]/TotalFrequenceInconnu)),2)
+
+        Proximite=math.sqrt(DifFreq)
+        print(Proximite)
+
+
+
+
+
