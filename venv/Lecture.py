@@ -15,14 +15,14 @@ class LectureFichier:
     def EnleverCaractere(self,liste):
         PONC = ["!", '"', "'", ")", "(", ",", ".", ";", ":", "?", "-", "_","—"]
         ListeRetour = []
+        liste=liste.replace("\n"," ")
         NewListe = liste.split()
         AutreLitre=[]
         for mot in NewListe:
             for signe in PONC:
                 mot = mot.replace(signe," ")
-            mot = mot.replace("\n", "")
-            mot = mot.lstrip()
-            mot = mot.rstrip()
+            #mot = mot.lstrip()
+            #mot = mot.rstrip()
             mot=mot.lower()
             AutreLitre=mot.split()
 
@@ -53,14 +53,14 @@ class LectureFichier:
             ListeTemp=self.EnleverCaractere(lines)
             if modelecture ==2:
                 self.DictionnaireAComparer.clear()
-                for index in range(len(ListeTemp) - 2):
+                for index in range(len(ListeTemp)-1):
                     if str(ListeTemp[index] + " " + ListeTemp[index + 1]) in self.DictionnaireAComparer:
                         self.DictionnaireAComparer[str(ListeTemp[index] + " " + ListeTemp[index + 1])] += 1
                     else:
                         self.DictionnaireAComparer[str(ListeTemp[index] + " " + ListeTemp[index + 1])] = 1
             elif modelecture==1:
                 self.DictionnaireAComparer.clear()
-                for i in range(len(ListeTemp) - 1):
+                for i in range(len(ListeTemp)):
                     if ListeTemp[i] in self.DictionnaireAComparer:
                         self.DictionnaireAComparer[ListeTemp[i]] += 1
                     else:
@@ -87,7 +87,7 @@ class LectureFichier:
                         TempListe = self.EnleverCaractere(lines)
                     else:
                         TempListe = lines.split()
-                    for i in range(len(TempListe) - 1):
+                    for i in range(len(TempListe)):
                         if TempListe[i] in self.DictionnaireUnigramme:
                             self.DictionnaireUnigramme[TempListe[i]] += 1
                             self.ListeMot.append(TempListe[i])
@@ -117,7 +117,7 @@ class LectureFichier:
                         TempListe=self.EnleverCaractere(lines)
                     else:
                         TempListe=lines.split()
-                    for index in range(len(TempListe) - 1):
+                    for index in range(len(TempListe)-1):
                         self.ListeMot.append(TempListe[index])
                         if str(TempListe[index] + " " + TempListe[index + 1]) in self.DictionnaireUnigramme:
                             self.DictionnaireUnigramme[str(TempListe[index] + " " + TempListe[index + 1])] += 1
@@ -207,7 +207,7 @@ class LectureFichier:
                 ListeSuffixPossible.append([data["weight"], edges[1]])
             SortedList = sorted(ListeSuffixPossible, reverse=True)
             if len(SortedList) == 0:
-                TexteFinale.append(". ")
+                TexteFinale.append(".")
                 FirstMot = self.motRandom()
                 TexteFinale.append(FirstMot)
                 print("mot trouve:" + FirstMot)
@@ -250,6 +250,8 @@ class LectureFichier:
         DifFreq=0
         TotalFrequenceAuteur=0
         TotalFrequenceInconnu=0
+        TotalFreq=0
+        self.ListeMotCommun.clear()
         if modecomparaison ==2:
             self.Lire_fichierModeBigramme(repertoire,auteur,True)
             self.LireAComparer(texteinconu, modecomparaison)
@@ -257,16 +259,21 @@ class LectureFichier:
             self.Lire_fichierUnigramme(repertoire,auteur,True)
             self.LireAComparer(texteinconu,modecomparaison)
         else: return 0
+
         for word in self.DictionnaireAComparer:
             if word in self.DictionnaireUnigramme:
                 self.ListeMotCommun.append(word)
                 TotalFrequenceAuteur+=self.DictionnaireUnigramme[word]
                 TotalFrequenceInconnu+=self.DictionnaireAComparer[word]
+                TotalFreq+= (TotalFrequenceInconnu+TotalFrequenceAuteur)
+
         for word in self.ListeMotCommun:
-            DifFreq+=pow(abs((self.DictionnaireUnigramme[word]/TotalFrequenceAuteur)-(self.DictionnaireAComparer[word]/TotalFrequenceInconnu)),2)
+            DifFreq+=pow(abs((self.DictionnaireUnigramme[word]/TotalFreq)-(self.DictionnaireAComparer[word]/TotalFreq)),2)
+            #print("Auteur:",self.DictionnaireUnigramme[word]/TotalFrequenceAuteur)
+            #print("Texte: ",self.DictionnaireAComparer[word]/TotalFrequenceInconnu)
 
         Proximite=math.sqrt(DifFreq)
-        print(Proximite)
+        print("Auteur: ", auteur," ",Proximite)
 
 
 

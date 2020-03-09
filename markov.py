@@ -134,14 +134,20 @@ if __name__ == "__main__":
 ### Ã€ partir d'ici, vous devriez inclure les appels Ã  votre code
 
 Stats=LectureFichier()
-#Stats.Lire_fichierUnigramme(args.d,args.a,True)
+Stats.Lire_fichierUnigramme(args.d,args.a,True)
 #Stats.printDictionnaire()
 #Stats.Lire_fichierUnigramme(args.d,"Balzac")
-Stats.Lire_fichierModeBigramme(args.d,args.a,True)
+#Stats.Lire_fichierModeBigramme(args.d,args.a,True)
 #Stats.PrintFrequenceNMot(3)
-Stats.GenererTexteAleatoire(60,0)
+#Stats.GenererTexteAleatoire(80,0)
 #Stats.LireAComparer(args.f,2)
-#Stats.ComparerAuteurAvecTexte(args.d,args.a,args.f,1)
+Stats.ComparerAuteurAvecTexte(args.d,"Balzac",args.f,1)
+Stats.ComparerAuteurAvecTexte(args.d,"Hugo",args.f,1)
+Stats.ComparerAuteurAvecTexte(args.d,"Ségur",args.f,1)
+Stats.ComparerAuteurAvecTexte(args.d,"Voltaire",args.f,1)
+Stats.ComparerAuteurAvecTexte(args.d,"Zola",args.f,1)
+
+
 
 
 
