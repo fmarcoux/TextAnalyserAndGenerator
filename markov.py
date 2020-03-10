@@ -74,7 +74,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', required=True, help='Repertoire contenant les sous-repertoires des auteurs')
     parser.add_argument('-a', help='Auteur a traiter')
     parser.add_argument('-f', help='Fichier inconnu a comparer')
-    parser.add_argument('-m', required=True, type=int, choices=range(1, 2),
+    parser.add_argument('-m', required=True, type=int, choices=range(1, 3),
                         help='Mode (1 ou 2) - unigrammes ou digrammes')
     parser.add_argument('-F', type=int, help='Indication du rang (en frequence) du mot (ou bigramme) a imprimer')
     parser.add_argument('-G', type=int, help='Taille du texte a generer')
@@ -134,20 +134,25 @@ if __name__ == "__main__":
 ### Ã€ partir d'ici, vous devriez inclure les appels Ã  votre code
 
 Stats=LectureFichier()
-#Stats.Lire_fichierUnigramme(args.d,args.a,True)
-#Stats.printDictionnaire()
-#Stats.Lire_fichierUnigramme(args.d,"Balzac")
-#Stats.Lire_fichierModeBigramme(args.d,args.a,True)
-#Stats.PrintFrequenceNMot(3)
-#Stats.GenererTexteAleatoire(80,0)
-#Stats.LireAComparer(args.f,2)
-if args.F and args.a != None:
+if args.F :
     if args.m==2:
-        Stats.Lire_fichierModeBigramme(args.d,args.a,remove_ponc)
-        Stats.PrintFrequenceNMot(args.F)
+        if args.a == None:
+            for a in authors:
+                aut = a.split("/")
+                Stats.Lire_fichierModeBigramme(args.d,aut[-1], remove_ponc)
+                Stats.PrintFrequenceNMot(args.F,aut[-1])
+        else:
+            Stats.Lire_fichierModeBigramme(args.d,args.a,remove_ponc)
+            Stats.PrintFrequenceNMot(args.F,args.a)
     elif args.m==1:
-        Stats.Lire_fichierUnigramme(args.d,args.a,remove_ponc)
-        Stats.PrintFrequenceNMot(args.F)
+        if args.a == None:
+            for a in authors:
+                aut = a.split("/")
+                Stats.Lire_fichierUnigramme(args.d, aut[-1], remove_ponc)
+                Stats.PrintFrequenceNMot(args.F)
+        else:
+            Stats.Lire_fichierUnigramme(args.d,args.a,remove_ponc)
+            Stats.PrintFrequenceNMot(args.F)
     else:
         print("seulement les unigrammes et les bigrammes sont supporte : m= 1ou 2")
 if args.f != None:

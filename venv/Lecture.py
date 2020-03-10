@@ -175,10 +175,15 @@ class LectureFichier:
             print(self.DictionnaireUnigramme)
 
 
-    def PrintFrequenceNMot(self,Frequence):
-        sortedliste=sorted(self.DictionnaireUnigramme,key=self.DictionnaireUnigramme.get,reverse=True)
-        count = 0
-        print(sortedliste[Frequence-1])
+
+    def PrintFrequenceNMot(self,Frequence,auteur):
+        if len(self.DictionnaireUnigramme)==0:
+            None
+        else:
+            sortedliste=sorted(self.DictionnaireUnigramme,key=self.DictionnaireUnigramme.get,reverse=True)
+            if Frequence>(len(sortedliste)):
+                Frequence=len(sortedliste)
+            print("dans les textes de :",auteur, "le", Frequence,"e mot le plus frequent est : ", sortedliste[Frequence])
 
         #for w in sorted(self.DictionnaireUnigramme,key=self.DictionnaireUnigramme.get,reverse=True):
 
@@ -274,8 +279,3 @@ class LectureFichier:
 
         Proximite=math.sqrt(DifFreq)
         print("Auteur: ", auteur," ",Proximite)
-
-
-
-
-
