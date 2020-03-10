@@ -46,20 +46,18 @@ class LectureFichier:
 
 
     def LireAComparer(self,path,modelecture):
-
+        self.DictionnaireAComparer.clear()
         ListeTemp=[]
         f=open(path,'r', encoding="utf8")
         for lines in f:
             ListeTemp=self.EnleverCaractere(lines)
             if modelecture ==2:
-                self.DictionnaireAComparer.clear()
                 for index in range(len(ListeTemp)-1):
                     if str(ListeTemp[index] + " " + ListeTemp[index + 1]) in self.DictionnaireAComparer:
                         self.DictionnaireAComparer[str(ListeTemp[index] + " " + ListeTemp[index + 1])] += 1
                     else:
                         self.DictionnaireAComparer[str(ListeTemp[index] + " " + ListeTemp[index + 1])] = 1
             elif modelecture==1:
-                self.DictionnaireAComparer.clear()
                 for i in range(len(ListeTemp)):
                     if ListeTemp[i] in self.DictionnaireAComparer:
                         self.DictionnaireAComparer[ListeTemp[i]] += 1
