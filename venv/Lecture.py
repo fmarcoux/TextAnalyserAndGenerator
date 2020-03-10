@@ -43,6 +43,16 @@ class LectureFichier:
 
         return ListeRetour
 
+    def EnleverMot2Lettre(self,liste):
+        ListeRetour=[]
+        liste = liste.replace("\n", " ")
+        liste = liste.lower()
+        NewListe = liste.split()
+        for mot in NewListe:
+            if len(mot) > 2:
+                ListeRetour.append(mot)
+        return ListeRetour
+
     def GetListe(self):
         return(self.ListeMot)
 
@@ -95,7 +105,7 @@ class LectureFichier:
                     if ponctuation:
                         TempListe = self.EnleverCaractere(lines)
                     else:
-                        TempListe = lines.split()
+                        TempListe = self.EnleverMot2Lettre(lines)
                     for i in range(len(TempListe)):
                         if TempListe[i] in self.DictionnaireUnigramme:
                             self.DictionnaireUnigramme[TempListe[i]] += 1
@@ -125,7 +135,7 @@ class LectureFichier:
                     if ponctuation:
                         TempListe=self.EnleverCaractere(lines)
                     else:
-                        TempListe=lines.split()
+                        TempListe=self.EnleverMot2Lettre(lines)
                     for index in range(len(TempListe)-1):
                         self.ListeMot.append(TempListe[index])
                         if str(TempListe[index] + " " + TempListe[index + 1]) in self.DictionnaireUnigramme:
@@ -209,8 +219,6 @@ class LectureFichier:
         return FirstMot
 
     def GenererTexteAleatoire(self, NombreMot, Frequence, nomfichier, auteur):
-        print(auteur)
-        print(nomfichier)
         TexteFinale = list()
         ListeSuffixPossible = []
         FirstMot = self.motRandom()
