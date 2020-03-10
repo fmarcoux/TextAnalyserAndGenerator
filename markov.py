@@ -170,13 +170,17 @@ if args.f != None:
 if args.G!= None:
     if args.a ==None:
         for a in authors:
-            aut = a.split("/")
-            Stats.addAuteur(aut[-1])
-            Stats.Lire_fichierModeBigramme(args.d,aut[-1],remove_ponc)
-            Stats.GenererTexteAleatoire(args.G,0)
+            if "." not in a:
+                aut = a.split("/")
+                nomfichier=str(aut[-1]+".txt")
+                Stats.addAuteur(aut[-1])
+                Stats.Lire_fichierModeBigramme(args.d,aut[-1],remove_ponc)
+                Stats.GenererTexteAleatoire(args.G,0,nomfichier,aut[-1])
+            else:
+                None
     else:
         Stats.Lire_fichierModeBigramme(args.d,args.a, remove_ponc)
-        Stats.GenererTexteAleatoire(args.G, 0)
+        Stats.GenererTexteAleatoire(args.G, 0,args.g,args.a)
 
 
 

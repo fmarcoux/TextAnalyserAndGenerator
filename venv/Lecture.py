@@ -208,12 +208,14 @@ class LectureFichier:
                            + self.ListeMot[randint(0, (len(self.ListeMot) - 1))])
         return FirstMot
 
-    def GenererTexteAleatoire(self, NombreMot, Frequence):
+    def GenererTexteAleatoire(self, NombreMot, Frequence, nomfichier, auteur):
+        print(auteur)
+        print(nomfichier)
         TexteFinale = list()
         ListeSuffixPossible = []
         FirstMot = self.motRandom()
         TexteFinale.append(FirstMot)
-        print("mot trouve:" + FirstMot)
+        # print("mot trouve:" + FirstMot)
         Edges = (self.Graph.edges(FirstMot))
         for index in range(NombreMot):
             for edges in Edges:
@@ -224,7 +226,7 @@ class LectureFichier:
                 TexteFinale.append(".")
                 FirstMot = self.motRandom()
                 TexteFinale.append(FirstMot)
-                print("mot trouve:" + FirstMot)
+                # print("mot trouve:" + FirstMot)
                 Edges = (self.Graph.edges(FirstMot))
                 for edges in Edges:
                     data = self.Graph.get_edge_data(edges[0], edges[1])
@@ -245,20 +247,25 @@ class LectureFichier:
                 if len(SortedList) != 0:
                     random = randint(0, len(SortedList))
                     if random == 0:
-                        print(SortedList[0])
+                        # print(SortedList[0])
                         NextMot = SortedList[random]
                     else:
                         NextMot = SortedList[random - 1]
             TexteFinale.append(NextMot[1])
-            print("Next mot: " + str(NextMot) + "\n" + "InfoCurrent :" + str(InfoCurrent))
+            # print("Next mot: " + str(NextMot) + "\n" + "InfoCurrent :" + str(InfoCurrent))
             if len(InfoCurrent) > 1:
                 Edges = self.Graph.edges(InfoCurrent[1] + " " + NextMot[1])
             else:
                 Edges = self.Graph.edges(InfoCurrent[0] + " " + NextMot[1])
-
             SortedList.clear()
             ListeSuffixPossible.clear()
-        print(TexteFinale)
+        f = open(nomfichier, "w", encoding="utf-8")
+        f.write(auteur + "\nDebut: ")
+        for index in range(len(TexteFinale) - 1):
+            f.write(TexteFinale[index])
+            f.write(" ")
+        f.write("\nFin")
+        f.close()
 
     def ComparerAuteurAvecTexte(self,repertoire,auteur,texteinconu,modecomparaison):
 
