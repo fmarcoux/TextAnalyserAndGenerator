@@ -132,7 +132,31 @@ if __name__ == "__main__":
             print("    " + aut[-1])
 
 ### Ã€ partir d'ici, vous devriez inclure les appels Ã  votre code
+'''
+marf2910
+lafo0701
 
+le fichier lecture.py contient la classe qui fait toutes les manipulations
+
+IMPORTANT: pour éviter les erreurs, chaque auteur ou répertoire avec un . dans son titre ne sera pas évalué
+
+Pour indiquer que l'analyse se fera sur tous les auteur présent dans le répertoire d'auteur, ne pas mettre d'argument -a
+
+le nom du fichier (-g et -f) doivent contenir le .txt 
+
+Lorsqu'on génere un texte aléatoire pour tous les auteurs, le nom du texte générer sera propre au nom de l'auteur
+Par contre, lorsqu'on génere un texte aléatoire pour un auteur seulement, le nom du fichier sera celui spécifier dans
+l'argument -g
+
+Pour enlever la ponctuation, ne pas mettre d'argument -P 
+Pour laisser la ponctuation, ecrire seulement -P
+
+******
+en changeant seulement la ligne de commande, les actions voulu vont s'éxécuter automatiquement
+******
+lors de la comparaison du textes inconnu avec les auteurs présents dans le répertoire, le style de l'auteur qui ressemble le plus au texte inconnu sera écrit dans la console
+
+'''
 Stats=LectureFichier()
 if args.F :
     if args.m==2:

@@ -3,7 +3,10 @@ import os
 import math
 from random import randint
 
-
+'''
+marf2910
+lafo0701
+'''
 class LectureFichier:
     def __init__(self):
         self.ListeMot=list()
@@ -28,19 +31,15 @@ class LectureFichier:
         ListeRetour = []
         liste=liste.replace("\n"," ")
         NewListe = liste.split()
-        AutreLitre=[]
+        AutreListe=[]
         for mot in NewListe:
             for signe in PONC:
                 mot = mot.replace(signe," ")
-            #mot = mot.lstrip()
-            #mot = mot.rstrip()
             mot=mot.lower()
-            AutreLitre=mot.split()
-
-            for mot in AutreLitre:
+            AutreListe=mot.split()
+            for mot in AutreListe:
                 if len(mot)>2:
                     ListeRetour.append(mot)
-
         return ListeRetour
 
     def EnleverMot2Lettre(self,liste):
@@ -62,9 +61,7 @@ class LectureFichier:
         while not self.Graph.has_node(FirstMot):
             FirstMot = str(self.ListeMot[randint(0, (len(self.ListeMot) - 1))] + " "
                            + self.ListeMot[randint(0, (len(self.ListeMot) - 1))])
-        print("mot trouve:" + FirstMot)
         return FirstMot
-
 
     def LireAComparer(self,path,modelecture):
         self.DictionnaireAComparer.clear()
@@ -86,7 +83,6 @@ class LectureFichier:
                         self.DictionnaireAComparer[ListeTemp[i]] = 1
             else:
                 print("mauvais mode de lecture le fichier n'a pas ete lu")
-
 
     def Lire_fichierUnigramme(self,repertoire,auteur,ponctuation): #Analyse un auteur et update le dictionnaire
         # que le dict de la freq des mots
@@ -168,12 +164,6 @@ class LectureFichier:
                 Frequence=len(sortedliste)
             print("dans les textes de :",auteur, "le", Frequence,"e mot le plus frequent est : ", sortedliste[Frequence])
 
-        #for w in sorted(self.DictionnaireUnigramme,key=self.DictionnaireUnigramme.get,reverse=True):
-
-            #if count !=Frequence:
-                #print(w,self.DictionnaireUnigramme[w])
-                #count+=1
-
     def motRandom(self):
         FirstMot = str(self.ListeMot[randint(0, (len(self.ListeMot) - 1))] + " " + self.ListeMot[
             randint(0, (len(self.ListeMot) - 1))])
@@ -187,7 +177,6 @@ class LectureFichier:
         ListeSuffixPossible = []
         FirstMot = self.motRandom()
         TexteFinale.append(FirstMot)
-        # print("mot trouve:" + FirstMot)
         Edges = (self.Graph.edges(FirstMot))
         for index in range(NombreMot):
             for edges in Edges:
@@ -198,7 +187,6 @@ class LectureFichier:
                 TexteFinale.append(".")
                 FirstMot = self.motRandom()
                 TexteFinale.append(FirstMot)
-                # print("mot trouve:" + FirstMot)
                 Edges = (self.Graph.edges(FirstMot))
                 for edges in Edges:
                     data = self.Graph.get_edge_data(edges[0], edges[1])
@@ -219,12 +207,10 @@ class LectureFichier:
                 if len(SortedList) != 0:
                     random = randint(0, len(SortedList))
                     if random == 0:
-                        # print(SortedList[0])
                         NextMot = SortedList[random]
                     else:
                         NextMot = SortedList[random - 1]
             TexteFinale.append(NextMot[1])
-            # print("Next mot: " + str(NextMot) + "\n" + "InfoCurrent :" + str(InfoCurrent))
             if len(InfoCurrent) > 1:
                 Edges = self.Graph.edges(InfoCurrent[1] + " " + NextMot[1])
             else:
@@ -255,7 +241,7 @@ class LectureFichier:
                 self.ListeMotCommun.append(word)
         self.DictonnaireAuteur[auteur] = len(self.ListeMotCommun)
         if "." not in auteur:
-            print(auteur+ " le texte a : "+str(len(self.ListeMotCommun))+" mots en commun avec le fichier de comparaison")
+            print("selon le repertoire de "+auteur+ " le texte a : "+str(len(self.ListeMotCommun))+" mots en commun avec le fichier de comparaison")
 
     def ComparerDictionnaireAuteur(self):
         freqMax = 0
@@ -264,4 +250,4 @@ class LectureFichier:
             if freqMax < self.DictonnaireAuteur[a]:
                 freqMax = self.DictonnaireAuteur[a]
                 auteur = a
-        print("L'auteur de ce texte est " + auteur)
+        print("L'auteur le plus ressemblant au style de ce texte est: " + auteur)
