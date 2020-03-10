@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ef6679e-ee31-4160-97e4-443bd8b6cd1b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/markov.py" beforeDir="false" afterPath="$PROJECT_DIR$/markov.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/Lecture.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Lecture.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

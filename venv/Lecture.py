@@ -155,41 +155,6 @@ class LectureFichier:
                                 self.Graph.add_edge(TempListe[index]+" "+TempListe[index+1], TempListe[index + 2], weight=1)
                 f.close()
 
-
-    def partition(self,arr, low, high):
-        i = (low - 1)  # index of smaller element
-        pivot = arr[high]  # pivot
-
-        for j in range(low, high):
-
-            # If current element is smaller than or
-            # equal to pivot
-            if arr[j] <= pivot:
-                # increment index of smaller element
-                i = i + 1
-                arr[i], arr[j] = arr[j], arr[i]
-
-        arr[i + 1], arr[high] = arr[high], arr[i + 1]
-        return (i + 1)
-
-    # The main function that implements QuickSort
-    # arr[] --> Array to be sorted,
-    # low  --> Starting index,
-    # high  --> Ending index
-
-    # Function to do Quick sort
-    def quickSort(self,arr, low, high):
-        if low < high:
-            # pi is partitioning index, arr[p] is now
-            # at right place
-            pi = self.partition(arr, low, high)
-
-            # Separately sort elements before
-            # partition and after partition
-            self.quickSort(arr, low, pi - 1)
-            self.quickSort(arr, pi + 1, high)
-
-
     def printDictionnaire(self):
             print("Dictionnaire de la frequence des mots dans le texte : \n")
             print(self.DictionnaireUnigramme)
@@ -291,7 +256,6 @@ class LectureFichier:
         self.DictonnaireAuteur[auteur] = len(self.ListeMotCommun)
         if "." not in auteur:
             print(auteur+ " le texte a : "+str(len(self.ListeMotCommun))+" mots en commun avec le fichier de comparaison")
-
 
     def ComparerDictionnaireAuteur(self):
         freqMax = 0
