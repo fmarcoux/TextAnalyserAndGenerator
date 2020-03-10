@@ -139,6 +139,7 @@ if args.F :
         if args.a == None:
             for a in authors:
                 aut = a.split("/")
+                Stats.addAuteur(aut[-1])
                 Stats.Lire_fichierModeBigramme(args.d,aut[-1], remove_ponc)
                 Stats.PrintFrequenceNMot(args.F,aut[-1])
         else:
@@ -148,6 +149,7 @@ if args.F :
         if args.a == None:
             for a in authors:
                 aut = a.split("/")
+                Stats.addAuteur(aut[-1])
                 Stats.Lire_fichierUnigramme(args.d, aut[-1], remove_ponc)
                 Stats.PrintFrequenceNMot(args.F)
         else:
@@ -159,13 +161,17 @@ if args.f != None:
     if args.a ==None:
         for a in authors:
             aut = a.split("/")
+            Stats.addAuteur(aut[-1])
             Stats.ComparerAuteurAvecTexte(args.d,aut[-1],args.f,args.m)
     else:
         Stats.ComparerAuteurAvecTexte(args.d,args.a, args.f, args.m)
+
+    Stats.ComparerDictionnaireAuteur()
 if args.G!= None:
     if args.a ==None:
         for a in authors:
             aut = a.split("/")
+            Stats.addAuteur(aut[-1])
             Stats.Lire_fichierModeBigramme(args.d,aut[-1],remove_ponc)
             Stats.GenererTexteAleatoire(args.G,0)
     else:

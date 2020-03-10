@@ -11,6 +11,17 @@ class LectureFichier:
         self.Graph=nx.Graph()
         self.DictionnaireAComparer={}
         self.ListeMotCommun=[]
+        self.DictonnaireAuteur={}
+
+
+    def addAuteur(self, auteur):
+        if auteur in self.DictonnaireAuteur:
+            None
+        else:
+            if "." in auteur:
+                None
+            else:
+                self.DictonnaireAuteur[auteur] = 0
 
     def EnleverCaractere(self,liste):
         PONC = ["!", '"', "'", ")", "(", ",", ".", ";", ":", "?", "-", "_","—"]
@@ -250,10 +261,7 @@ class LectureFichier:
         print(TexteFinale)
 
     def ComparerAuteurAvecTexte(self,repertoire,auteur,texteinconu,modecomparaison):
-        DifFreq=0
-        TotalFrequenceAuteur=0
-        TotalFrequenceInconnu=0
-        TotalFreq=0
+
         self.ListeMotCommun.clear()
         if modecomparaison ==2:
             self.Lire_fichierModeBigramme(repertoire,auteur,True)
@@ -266,5 +274,14 @@ class LectureFichier:
         for word in self.DictionnaireAComparer:
             if word in self.DictionnaireUnigramme:
                 self.ListeMotCommun.append(word)
-        Proximite=math.sqrt(DifFreq)
-        print("Auteur: ", auteur," ",len(self.ListeMotCommun))
+        self.DictonnaireAuteur[auteur] = len(self.ListeMotCommun)
+
+
+    def ComparerDictionnaireAuteur(self):
+        freqMax = 0
+        auteur = None
+        for a in self.DictonnaireAuteur:
+            if freqMax < self.DictonnaireAuteur[a]:
+                freqMax = self.DictonnaireAuteur[a]
+                auteur = a
+        print("L'auteur de ce texte est " + auteur)
