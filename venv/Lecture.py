@@ -266,14 +266,5 @@ class LectureFichier:
         for word in self.DictionnaireAComparer:
             if word in self.DictionnaireUnigramme:
                 self.ListeMotCommun.append(word)
-                TotalFrequenceAuteur+=self.DictionnaireUnigramme[word]
-                TotalFrequenceInconnu+=self.DictionnaireAComparer[word]
-                TotalFreq+= (TotalFrequenceInconnu+TotalFrequenceAuteur)
-
-        for word in self.ListeMotCommun:
-            DifFreq+=pow(abs((self.DictionnaireUnigramme[word]/TotalFreq)-(self.DictionnaireAComparer[word]/TotalFreq)),2)
-            #print("Auteur:",self.DictionnaireUnigramme[word]/TotalFrequenceAuteur)
-            #print("Texte: ",self.DictionnaireAComparer[word]/TotalFrequenceInconnu)
-
         Proximite=math.sqrt(DifFreq)
-        print("Auteur: ", auteur," ",Proximite)
+        print("Auteur: ", auteur," ",len(self.ListeMotCommun))
