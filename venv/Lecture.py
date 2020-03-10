@@ -115,7 +115,8 @@ class LectureFichier:
                             self.ListeMot.append(TempListe[i])
                 f.close()
         else:
-            print("pas d'auteur nomme :", auteur)# #
+            if "." not in auteur:
+                print("pas d'auteur nomme :", auteur)# #
 
 
     def Lire_fichierModeBigramme(self,repertoire,auteur,ponctuation):  # li un fichier en mode bigramme et update le graph et la iste des mots et le dict
@@ -192,8 +193,6 @@ class LectureFichier:
     def printDictionnaire(self):
             print("Dictionnaire de la frequence des mots dans le texte : \n")
             print(self.DictionnaireUnigramme)
-
-
 
     def PrintFrequenceNMot(self,Frequence,auteur):
         if len(self.DictionnaireUnigramme)==0:
@@ -290,6 +289,8 @@ class LectureFichier:
             if word in self.DictionnaireUnigramme:
                 self.ListeMotCommun.append(word)
         self.DictonnaireAuteur[auteur] = len(self.ListeMotCommun)
+        if "." not in auteur:
+            print(auteur+ " le texte a : "+str(len(self.ListeMotCommun))+" mots en commun avec le fichier de comparaison")
 
 
     def ComparerDictionnaireAuteur(self):

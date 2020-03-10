@@ -140,21 +140,21 @@ if args.F :
             for a in authors:
                 aut = a.split("/")
                 Stats.addAuteur(aut[-1])
-                Stats.Lire_fichierModeBigramme(args.d,aut[-1], remove_ponc)
+                Stats.Lire_fichierModeBigramme(rep_aut,aut[-1], remove_ponc)
                 Stats.PrintFrequenceNMot(args.F,aut[-1])
         else:
-            Stats.Lire_fichierModeBigramme(args.d,args.a,remove_ponc)
+            Stats.Lire_fichierModeBigramme(rep_aut,args.a,remove_ponc)
             Stats.PrintFrequenceNMot(args.F,args.a)
     elif args.m==1:
         if args.a == None:
             for a in authors:
                 aut = a.split("/")
                 Stats.addAuteur(aut[-1])
-                Stats.Lire_fichierUnigramme(args.d, aut[-1], remove_ponc)
-                Stats.PrintFrequenceNMot(args.F)
+                Stats.Lire_fichierUnigramme(rep_aut, aut[-1], remove_ponc)
+                Stats.PrintFrequenceNMot(args.F,aut[-1])
         else:
-            Stats.Lire_fichierUnigramme(args.d,args.a,remove_ponc)
-            Stats.PrintFrequenceNMot(args.F)
+            Stats.Lire_fichierUnigramme(rep_aut,args.a,remove_ponc)
+            Stats.PrintFrequenceNMot(args.F,args.a)
     else:
         print("seulement les unigrammes et les bigrammes sont supporte : m= 1ou 2")
 if args.f != None:
@@ -162,9 +162,9 @@ if args.f != None:
         for a in authors:
             aut = a.split("/")
             Stats.addAuteur(aut[-1])
-            Stats.ComparerAuteurAvecTexte(args.d,aut[-1],args.f,args.m)
+            Stats.ComparerAuteurAvecTexte(rep_aut,aut[-1],args.f,args.m)
     else:
-        Stats.ComparerAuteurAvecTexte(args.d,args.a, args.f, args.m)
+        Stats.ComparerAuteurAvecTexte(rep_aut,args.a, args.f, args.m)
 
     Stats.ComparerDictionnaireAuteur()
 if args.G!= None:
@@ -174,12 +174,12 @@ if args.G!= None:
                 aut = a.split("/")
                 nomfichier=str(aut[-1]+".txt")
                 Stats.addAuteur(aut[-1])
-                Stats.Lire_fichierModeBigramme(args.d,aut[-1],remove_ponc)
+                Stats.Lire_fichierModeBigramme(rep_aut,aut[-1],remove_ponc)
                 Stats.GenererTexteAleatoire(args.G,0,nomfichier,aut[-1])
             else:
                 None
     else:
-        Stats.Lire_fichierModeBigramme(args.d,args.a, remove_ponc)
+        Stats.Lire_fichierModeBigramme(rep_aut,args.a, remove_ponc)
         Stats.GenererTexteAleatoire(args.G, 0,args.g,args.a)
 
 
